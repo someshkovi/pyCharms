@@ -21,7 +21,7 @@ def ispriamry(hostname):
     else:
         retrun(0)
 
-def main():
+def getStorageUtil():
     hostname1 = '10.66.47.11'
     hostname2 = '10.66.47.12'
     hostname = hostname2
@@ -138,6 +138,10 @@ def main():
     Summary = diskusageS.append({'Filesystem' : 'TapeLibrary' , 'Size_TB' : totalmdsizeTB, 'UseP' : avgmdusgP, 'Date':Date} , ignore_index=True)
     Summary = Summary.fillna(0)
 
+    return(result,Summary)
+
+def main():
+    result,Summary = getStorageUtil()
     print('uploading tape policy summary to db')
     try:
         conn = pyodbc.connect('DRIVER={SQL Server};SERVER=EMSENTSQL;DATABASE=STESTDB;UID=sa;PWD=EmsDB@dmIN8')
