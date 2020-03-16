@@ -82,7 +82,7 @@ def main():
     finally:
         client.close()
 
-    #summaziing tape pollicy usage
+    print('summaziing tape pollicy usage')
     mdusage['percentUsed'] = mdusage.percentUsed.apply(lambda c: float(c))
     dfpp = mdusage.groupby('classId', as_index=False).agg({"percentUsed": "mean"})
     dfpc = mdusage.groupby('classId', as_index=False).agg({"mediaId": "count"})
@@ -114,7 +114,7 @@ def main():
             except ValueError as error:
                 pass
 
-    #summarizing disk usage
+    print('summarizing disk usage')
     diskusage = pd.DataFrame(k, columns = ['Filesystem', 'Size', 'Used', 'Avail', 'UseP', 'Mount'])
     diskusage['Size'] = diskusage['Size'].astype('float')
     diskusage['Used'] = diskusage['Used'].astype('float')
@@ -131,14 +131,14 @@ def main():
     diskusageS = diskusageS.append({'Filesystem' : 'SNFStotal' , 'Size_TB' : TMDCSpace, 'UseP' : TMDCSpaceUseP, 'Date':Date} , ignore_index=True)
 
 
-    #summarize disk and tape usage
+    print('summarizing disk and tape usage')
     avgmdusgP = round(mdusage['percentUsed'].mean(),2)
     avgmdsizeTB = round(5980033680870/(1024*1024*1024*1024),2)
     totalmdsizeTB = round(mdusage['mediaId'].count()*avgmdsizeTB,2)
     Summary = diskusageS.append({'Filesystem' : 'TapeLibrary' , 'Size_TB' : totalmdsizeTB, 'UseP' : avgmdusgP, 'Date':Date} , ignore_index=True)
     Summary = Summary.fillna(0)
 
-    #uploading tape policy summary to db
+    print('uploading tape policy summary to db')
     try:
         conn = pyodbc.connect('DRIVER={SQL Server};SERVER=EMSENTSQL;DATABASE=STESTDB;UID=sa;PWD=EmsDB@dmIN8')
         cursor = conn.cursor()
@@ -149,7 +149,7 @@ def main():
         cursor.close()
         conn.close()
 
-    #uploading util summary to db
+    print('uploading util summary to db')
     try:
         conn = pyodbc.connect('DRIVER={SQL Server};SERVER=EMSENTSQL;DATABASE=STESTDB;UID=sa;PWD=EmsDB@dmIN8')
         cursor = conn.cursor()
