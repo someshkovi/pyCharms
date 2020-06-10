@@ -7,7 +7,7 @@ sys.path.append(funcpath)
 
 from nnmdata import *
 
-MSN = r'C:\Users\somesh\Desktop\DevP\nnm_class\MS21022020.xlsx'
+MSN = r'C:\Users\somesh\Desktop\logs\once\MS.xlsx'
 coded = r'C:\Users\somesh\Desktop\DevP\nnm_class\asset_class.csv'
 xmlfile = r'\\10.66.100.14\Applications\EMS\Status\info.xml'
 
@@ -33,5 +33,5 @@ XML = XML.rename(columns={"NPS Annotation":"assetcode"})
 
 devdata = devdata.merge(XML, how = 'left', on='assetcode')
 
-devdata.to_excel("devdata22022020.xlsx")
+devdata.to_excel(r"C:\Users\somesh\Desktop\logs\once\devdata250520-2.xlsx")
 print("--- %s XML seconds ---" % (time.time() - start_time))
