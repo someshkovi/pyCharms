@@ -56,3 +56,10 @@ smomiNNMMerge = smVarData.merge(XML, how = 'left', on='SM_DEVICE_DISPLAY_NAME')
 
 print('writing to excel')
 smomiNNMMerge.to_excel(r'C:\Users\somesh\Desktop\logs\smomiNNMMerge.xlsx')
+
+"""
+#UPDATE PROBSUMMARYM1 SET FLOOR = 'resolved' WHERE NUMBER like 'IC322710' and RESOLUTION IS NULL;
+
+#UPDATE PROBSUMMARYM1 SET CLIENTTYPER = 'resolved' WHERE NUMBER like 'IC326287';
+
+"""
